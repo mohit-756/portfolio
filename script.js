@@ -9,6 +9,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
+       LIGHT & DARK THEME TOGGLE (RECOMMENDATION 3)
+       ========================================================================== */
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
+
+    // Check for saved theme preference in localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-sun';
+        }
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            
+            const isLightActive = document.body.classList.contains('light-theme');
+            localStorage.setItem('theme', isLightActive ? 'light' : 'dark');
+            
+            if (themeIcon) {
+                themeIcon.className = isLightActive ? 'fas fa-sun' : 'fas fa-moon';
+            }
+
+            // Interactive micro-bounce animation on toggle click
+            themeToggleBtn.style.transform = 'scale(0.85)';
+            setTimeout(() => {
+                themeToggleBtn.style.transform = 'none';
+            }, 150);
+        });
+    }
+
+    /* ==========================================================================
        STICKY HEADER & NAVIGATION ACTIVE LINKS
        ========================================================================== */
     const header = document.getElementById('header');
@@ -145,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Remove active class from all filter buttons
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
@@ -169,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                // Fade back in
                 if (projectGrid) {
                     projectGrid.style.opacity = '1';
                     projectGrid.style.transform = 'translateY(0)';
@@ -193,7 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailInput = document.getElementById('email');
             const messageInput = document.getElementById('message');
 
-            // Input Validation check
             if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
                 showFormMessage('Please fill in all details before sending.', 'error');
                 return;
@@ -204,10 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Enter interactive sending state
             setSendingState(true);
 
-            // Simulate form submission delay
             setTimeout(() => {
                 setSendingState(false);
                 showFormMessage('Thank you! Your message has been sent successfully.', 'success');
@@ -225,7 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
         formMessage.textContent = text;
         formMessage.className = `form-message ${type}`;
         
-        // Auto dismiss errors after 5 seconds
         if (type === 'error') {
             setTimeout(() => {
                 formMessage.style.display = 'none';
@@ -271,4 +299,176 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    /* ==========================================================================
+       AI PORTFOLIO CHATBOT WIDGET (RECOMMENDATION 1)
+       ========================================================================== */
+    const aiToggle = document.getElementById('ai-toggle');
+    const aiClose = document.getElementById('ai-close');
+    const aiChatWindow = document.getElementById('ai-chat-window');
+    const aiChatMessages = document.getElementById('ai-chat-messages');
+    const aiChatInput = document.getElementById('ai-chat-input');
+    const aiChatForm = document.getElementById('ai-chat-form');
+    const suggestionBtns = document.querySelectorAll('.suggestion-btn');
+
+    // Toggle Chat Window Open/Closed
+    if (aiToggle && aiChatWindow) {
+        aiToggle.addEventListener('click', () => {
+            aiChatWindow.classList.toggle('open');
+            // Hide notification red pulse once opened
+            const pulseDot = aiToggle.querySelector('.pulse-dot');
+            if (pulseDot) pulseDot.style.display = 'none';
+
+            // Focus on input if opened
+            if (aiChatWindow.classList.contains('open')) {
+                setTimeout(() => aiChatInput.focus(), 300);
+            }
+        });
+    }
+
+    if (aiClose && aiChatWindow) {
+        aiClose.addEventListener('click', () => {
+            aiChatWindow.classList.remove('open');
+        });
+    }
+
+    // Handle Suggestions Clicks
+    suggestionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const question = btn.getAttribute('data-question');
+            if (question) {
+                handleUserQuestion(question);
+            }
+        });
+    });
+
+    // Handle Form Submit (User Type Question)
+    if (aiChatForm) {
+        aiChatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const question = aiChatInput.value.trim();
+            if (question) {
+                handleUserQuestion(question);
+                aiChatInput.value = '';
+            }
+        });
+    }
+
+    // Process User Question and generate dynamic response
+    const handleUserQuestion = (text) => {
+        // 1. Render User Message
+        appendMessage(text, 'user');
+
+        // Scroll messages list to bottom
+        scrollToBottom();
+
+        // 2. Trigger bot typing response simulation
+        setTimeout(() => {
+            const responseText = getNLPResponse(text);
+            appendMessage(responseText, 'bot');
+            scrollToBottom();
+        }, 600);
+    };
+
+    const appendMessage = (text, sender) => {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-msg ${sender}`;
+        
+        // Render rich HTML bullets and anchors correctly
+        messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+        aiChatMessages.appendChild(messageDiv);
+    };
+
+    const scrollToBottom = () => {
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    };
+
+    // Client-side NLP Intent Matcher
+    const getNLPResponse = (query) => {
+        const text = query.toLowerCase();
+
+        // Intent 1: Technical Skills & Technologies
+        if (matchKeywords(text, ['skill', 'programming', 'language', 'technologies', 'framework', 'libraries', 'stack'])) {
+            return `Mohit's technical stack is highly geared towards **AI/ML** and **Full-Stack Engineering**:\n\n` +
+                   `• **Programming**: Python, Java, C\n` +
+                   `• **AI & NLP**: LangChain, Ollama, ChromaDB, HuggingFace embeddings, TF-IDF, RAG pipelines, MLOps\n` +
+                   `• **Frameworks**: FastAPI, Spring Boot, React (Vite), Angular, H2, SQLite\n` +
+                   `• **DevOps & Cloud**: AWS (EC2, S3, CloudFront), Git, GitHub, REST APIs`;
+        }
+
+        // Intent 2: Internship Experience at Quadrant Technologies
+        if (matchKeywords(text, ['quadrant', 'experience', 'work', 'intern', 'job', 'hyderabad'])) {
+            return `Mohit served as a **Software Engineer Intern** at **Quadrant Technologies, Hyderabad** (Dec 2025 – May 2026):\n\n` +
+                   `• Engineered an automated resume parsing & screening tool in Python, **reducing manual shortlisting efforts by 40%**.\n` +
+                   `• Implemented TF-IDF text alignment similarity across 500+ candidates.\n` +
+                   `• Designed SQL candidate status database queries for highly efficient, scalable candidate tracking.`;
+        }
+
+        // Intent 3: RAG learning Companion Project
+        if (matchKeywords(text, ['rag', 'learning companion', 'study assistant', 'ollama', 'chromadb', 'langchain'])) {
+            return `The **AI Learning Companion** is a local LLM study assistant built using **Python, LangChain, Ollama, and ChromaDB**:\n\n` +
+                   `• Ingests PDF, DOCX, and images automatically, encoding them using HuggingFace embeddings inside ChromaDB.\n` +
+                   `• Generates contextual answers, automated study guides, quizzes, and summaries based entirely on study notes, completely preventing hallucinations!`;
+        }
+
+        // Intent 4: Interview Bot Project
+        if (matchKeywords(text, ['interview', 'proctoring', 'fastapi', 'scoring', 'cv', 'webcam', 'react'])) {
+            return `The **AI Interview & Proctoring System** is a full-stack platform built with **FastAPI and React (Vite)**:\n\n` +
+                   `• Incorporates an automated NLP scoring engine (TF-IDF keyword similarity) that **cut grading evaluation times by 50%**.\n` +
+                   `• Integrates webcam face gaze-tracking computer vision scripts to log multiple faces or gaze deviation for HR security auditing.`;
+        }
+
+        // Intent 5: Movie Ticket System
+        if (matchKeywords(text, ['movie', 'booking', 'ticket', 'spring boot', 'java'])) {
+            return `The **Movie Ticket Booking System** is an enterprise full-stack project built in **Spring Boot, Java, and AngularJS**:\n\n` +
+                   `• Employs Hibernate transactional locks to prevent double-booking seats during active show bookings.\n` +
+                   `• Features automated seeder scripts for active movie schedules and a responsive Angular UI.`;
+        }
+
+        // Intent 6: Contact details
+        if (matchKeywords(text, ['contact', 'email', 'phone', 'hire', 'phone number', 'reach', 'socials', 'linkedin', 'github'])) {
+            return `Here is how you can get in touch with Mohit directly:\n\n` +
+                   `• 📧 **Email**: mohitcheedala@gmail.com\n` +
+                   `• 📞 **Phone**: +91 75692 21183\n` +
+                   `• 💼 **LinkedIn**: <a href="https://linkedin.com/in/mohit-cheedella" target="_blank" class="glow-link-footer">linkedin.com/in/mohit-cheedella</a>\n` +
+                   `• 🐙 **GitHub**: <a href="https://github.com/mohit-756" target="_blank" class="glow-link-footer">github.com/mohit-756</a>`;
+        }
+
+        // Intent 7: Education & College
+        if (matchKeywords(text, ['education', 'college', 'degree', 'study', 'btech', 'rvr', 'guntur', 'cgpa'])) {
+            return `Mohit is a final-year **B.Tech Computer Science Engineering (AI & ML)** student at **RVR & JC College of Engineering, Guntur** (graduating class of 2026).\n\n` +
+                   `His specialization focuses heavily on Natural Language Processing, Machine Learning models, and Database Management Systems.`;
+        }
+
+        // Intent 8: Volunteering / MAD Fellowship
+        if (matchKeywords(text, ['volunteer', 'make a difference', 'mad', 'fellow', 'vice captain'])) {
+            return `Mohit is a **Volunteer Vice Captain & MAD Fellow** at MakeADifference (MAD):\n\n` +
+                   `• Leads a team of **15+ volunteers** teaching academic and life skills to underprivileged children.\n` +
+                   `• Manages onboarding documentation, feedback mechanisms, and impact data collection pipelines.`;
+        }
+
+        // Intent 9: Greetings
+        if (matchKeywords(text, ['hi', 'hello', 'hey', 'greetings', 'introduce', 'who are you'])) {
+            return `Hello there! I'm Mohit's custom portfolio AI assistant.\n\n` +
+                   `I can guide you through his FastAPI/React projects, his Python work history, or his contact information. What details are you looking for?`;
+        }
+
+        // Intent 10: Deploy / Host / Portfolio
+        if (matchKeywords(text, ['deploy', 'host', 'website', 'pages', 'huggingface'])) {
+            return `This portfolio is hosted 100% free using **GitHub Pages**!\n\n` +
+                   `For his AI/ML projects, Mohit utilizes **HuggingFace Spaces** (which hosts LLM/FastAPI backends for free) and **Render** to deploy scalable server-side systems.`;
+        }
+
+        // Default intent fallback
+        return `I'm not fully sure about that question, but I'm trained to assist you with Mohit's professional history! \n\n` +
+               `Feel free to click one of the quick suggestions below, or ask me about: \n` +
+               `• His **technical skills** \n` +
+               `• His **RAG study companion** \n` +
+               `• His **work history at Quadrant** \n` +
+               `• How to **hire/contact** him`;
+    };
+
+    const matchKeywords = (text, keywords) => {
+        return keywords.some(keyword => text.includes(keyword));
+    };
 });

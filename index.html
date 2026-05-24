@@ -39,11 +39,16 @@
                     <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#experience" class="nav-link">Experience</a></li>
                     <li><a href="#work" class="nav-link">Projects</a></li>
+                    <li><a href="#blog" class="nav-link">Insights</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
             
             <div class="header-socials">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="social-icon-btn" aria-label="Toggle theme" title="Toggle Light/Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
                 <a href="https://github.com/mohit-756" target="_blank" aria-label="GitHub" class="social-icon-btn"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/mohit-cheedella" target="_blank" aria-label="LinkedIn" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
             </div>
@@ -315,6 +320,21 @@
                             <span class="project-category">Retrieval-Augmented Generation</span>
                             <h3 class="project-name">AI Learning Companion</h3>
                             <p class="project-description">A personalized AI-powered study assistant using LangChain and Ollama with RAG for contextual, document-grounded answers.</p>
+                            
+                            <!-- Visual System Architecture Diagram (Recommendation 4) -->
+                            <div class="project-architecture-flow">
+                                <span class="flow-title">RAG Ingestion Pipeline Architecture:</span>
+                                <div class="flow-nodes">
+                                    <div class="flow-node">Multi-Format Doc</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node highlight">HuggingFace Embeds</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node highlight">ChromaDB Vector Store</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node">Local LLM (Ollama)</div>
+                                </div>
+                            </div>
+
                             <ul class="project-bullets-small">
                                 <li>Implemented multi-format document ingestion (PDF, DOCX) with vector embedding via ChromaDB & HuggingFace.</li>
                                 <li>Built automated features: summarization, flashcards, quizzes, and study plans via local LLM inference.</li>
@@ -350,6 +370,21 @@
                             <span class="project-category">Full Stack & NLP</span>
                             <h3 class="project-name">AI Interview & Proctoring</h3>
                             <p class="project-description">Full-stack automated interview platform with built-in computer vision proctoring and NLP-based text evaluation scoring.</p>
+                            
+                            <!-- Visual System Architecture Diagram (Recommendation 4) -->
+                            <div class="project-architecture-flow">
+                                <span class="flow-title">Audio/Text Processing Flow:</span>
+                                <div class="flow-nodes">
+                                    <div class="flow-node">Webcam Video & Audio</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node highlight">NLP TF-IDF Similarity</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node highlight">CV Eye-Gaze Classifier</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node">FastAPI & SQLite</div>
+                                </div>
+                            </div>
+
                             <ul class="project-bullets-small">
                                 <li>Built NLP scoring engine using TF-IDF similarity, cutting manual grading effort by 50%.</li>
                                 <li>Integrated webcam eye-gaze and multi-face detection modules for automated HR auditing.</li>
@@ -385,6 +420,21 @@
                             <span class="project-category">Enterprise Full-Stack</span>
                             <h3 class="project-name">Movie Ticket Booking System</h3>
                             <p class="project-description">A robust seat selection and ticket validation system featuring real-time restrictions and transactional seeder tasks.</p>
+                            
+                            <!-- Visual System Architecture Diagram (Recommendation 4) -->
+                            <div class="project-architecture-flow">
+                                <span class="flow-title">Transactional Order Flow:</span>
+                                <div class="flow-nodes">
+                                    <div class="flow-node">AngularJS View</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node highlight">Spring Boot Validation</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node highlight">JPA Hibernate Lock</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node">H2 Database SQL</div>
+                                </div>
+                            </div>
+
                             <ul class="project-bullets-small">
                                 <li>Built structured RESTful API layer in Spring Boot, handling seat configurations securely.</li>
                                 <li>Created responsive AngularJS user interface with automated forms and show-time restriction logic.</li>
@@ -420,6 +470,21 @@
                             <span class="project-category">NLP Engine</span>
                             <h3 class="project-name">Automated resume screener</h3>
                             <p class="project-description">An intern project developed at Quadrant Technologies to perform high-throughput parsing and matching of candidate records.</p>
+                            
+                            <!-- Visual System Architecture Diagram (Recommendation 4) -->
+                            <div class="project-architecture-flow">
+                                <span class="flow-title">Matching & Screening Logic Flow:</span>
+                                <div class="flow-nodes">
+                                    <div class="flow-node">Resume Text</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node highlight">TF-IDF Vectorization</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node highlight">Cosine Sim Algorithm</div>
+                                    <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="flow-node">SQL DB Candidate Pools</div>
+                                </div>
+                            </div>
+
                             <ul class="project-bullets-small">
                                 <li>Matched candidate criteria against active requirements, trimming operational lag by 40%.</li>
                                 <li>Optimized data pipelines, handling schema adjustments for large candidate pools.</li>
@@ -436,6 +501,55 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Insights Blog Section (Recommendation 2) -->
+        <section class="blog-section scroll-reveal" id="blog">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">AI & MLOps Insights</h2>
+                    <div class="title-line"></div>
+                </div>
+                
+                <p class="blog-intro">
+                    Documenting systems design, performance metrics, and empirical findings while engineering advanced NLP, Large Language Models, and full-stack solutions.
+                </p>
+                
+                <div class="blog-grid">
+                    <!-- Article 1 -->
+                    <article class="blog-card">
+                        <div class="blog-badge">NLP Engineering</div>
+                        <div class="blog-content-inner">
+                            <span class="blog-date">May 2026</span>
+                            <h3 class="blog-card-title"><a href="#">Why TF-IDF Similarity Still Outperforms Embeddings for High-Throughput Matching</a></h3>
+                            <p class="blog-card-summary">An empirical analysis of text-vectorization latency versus semantic match accuracy. Explores why TF-IDF works best for low-latency resume filtering applications.</p>
+                            <a href="#" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="blog-card">
+                        <div class="blog-badge">RAG Systems</div>
+                        <div class="blog-content-inner">
+                            <span class="blog-date">April 2026</span>
+                            <h3 class="blog-card-title"><a href="#">Optimizing Retrieval Chunk Sizes for Local LangChain & Ollama Pipelines</a></h3>
+                            <p class="blog-card-summary">A step-by-step experiment detailing vector search recall rates under different chunk size variables (250, 500, 1000 tokens) using ChromaDB and HuggingFace models.</p>
+                            <a href="#" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="blog-card">
+                        <div class="blog-badge">Computer Vision</div>
+                        <div class="blog-content-inner">
+                            <span class="blog-date">March 2026</span>
+                            <h3 class="blog-card-title"><a href="#">Low-Latency Computer Vision Proctoring inside React and FastAPI</a></h3>
+                            <p class="blog-card-summary">Building an automated exam security module. Explores browser webcam frame-sampling rates, coordinate calculations for eye-gaze deviation, and fast socket routing.</p>
+                            <a href="#" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -529,6 +643,42 @@
     <button class="back-to-top" id="back-to-top" aria-label="Back to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- Interactive AI Assistant Chat Bubble Widget (Recommendation 1) -->
+    <div class="ai-assistant-widget" id="ai-assistant">
+        <button class="ai-assistant-toggle" id="ai-toggle" aria-label="Toggle AI Assistant" title="Chat with Mohit's AI Agent">
+            <i class="fas fa-robot"></i>
+            <span class="pulse-dot"></span>
+        </button>
+        <div class="ai-chat-window" id="ai-chat-window">
+            <div class="ai-chat-header">
+                <div class="ai-avatar"><i class="fas fa-brain"></i></div>
+                <div class="ai-agent-details">
+                    <h4>Mohit's AI Agent</h4>
+                    <p><span class="online-indicator"></span> Online &middot; Responds instantly</p>
+                </div>
+                <button class="ai-chat-close" id="ai-close" aria-label="Close Chat"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="ai-chat-messages" id="ai-chat-messages">
+                <div class="chat-msg bot">
+                    <p>Hi! I'm Mohit's conversational AI assistant. Ask me anything about his technical skills, internship projects at Quadrant Technologies, or how to contact him directly!</p>
+                </div>
+            </div>
+            
+            <div class="ai-chat-suggestions" id="ai-chat-suggestions">
+                <button class="suggestion-btn" data-question="What are your technical skills?">What are your technical skills?</button>
+                <button class="suggestion-btn" data-question="Tell me about the AI Learning Companion RAG project">Tell me about the RAG Study project</button>
+                <button class="suggestion-btn" data-question="What did you do during your internship at Quadrant?">Internship at Quadrant</button>
+                <button class="suggestion-btn" data-question="How can I contact you?">How can I contact Mohit?</button>
+            </div>
+            
+            <form class="ai-chat-input-area" id="ai-chat-form">
+                <input type="text" id="ai-chat-input" placeholder="Ask a question..." required autocomplete="off">
+                <button type="submit" aria-label="Send Message"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
 
     <!-- Core Scripts -->
     <script src="script.js"></script>
